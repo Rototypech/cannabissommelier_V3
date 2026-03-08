@@ -41,17 +41,6 @@ export function SidebarFilters({ categories, activeSlug, locale, allLabel, dict 
 
   const items = (
     <ul className="space-y-0.5" role="list">
-      <li>
-        <button
-          onClick={() => navigate(null)}
-          className={`w-full rounded px-2 py-1.5 text-left text-sm transition-colors duration-150 ${!activeSlug
-            ? 'font-medium text-black dark:text-white'
-            : 'font-light text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white'
-            }`}
-        >
-          {allLabel}
-        </button>
-      </li>
 
       {rootCategories.map((cat) => (
         <li key={cat.databaseId}>

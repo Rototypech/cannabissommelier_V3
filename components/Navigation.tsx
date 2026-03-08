@@ -76,15 +76,6 @@ function NavContent({ categories, locale, dict }: Props) {
         role="navigation"
         aria-label="Główna nawigacja"
       >
-        <Link
-          href={`/${locale}/shop`}
-          className={`whitespace-nowrap text-[11px] tracking-[0.1em] transition-colors duration-150 ${isActive(null)
-            ? 'font-medium text-black dark:text-white'
-            : 'font-light text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white'
-            }`}
-        >
-          {locale === 'en' ? 'ALL' : 'ALLE'}
-        </Link>
         {mainCategories.map((cat) => {
           const hasChildren = categoryTree[cat.slug] && categoryTree[cat.slug].length > 0;
 
@@ -184,15 +175,6 @@ function NavContent({ categories, locale, dict }: Props) {
             {/* Navigation List */}
             <nav className="flex-1 overflow-y-auto pr-4 -mr-4">
               <ul className="space-y-6" role="list">
-                <li>
-                  <Link
-                    href={`/${locale}/shop`}
-                    className={`block text-xl font-light tracking-tight ${isActive(null) ? 'text-black dark:text-white' : 'text-neutral-400 dark:text-neutral-600'
-                      }`}
-                  >
-                    {dict.common.all.toUpperCase()}
-                  </Link>
-                </li>
                 {mainCategories.map((cat) => (
                   <li key={cat.slug} className="group">
                     <div className="flex items-center justify-between">
