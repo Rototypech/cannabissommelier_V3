@@ -24,18 +24,9 @@ interface ProductData {
 // ---------------------------------------------------------------------------
 
 export async function generateStaticParams() {
-  const data = await fetchGraphQL<SlugsData>(SLUGS_QUERY, undefined, 3600);
-  const locales = ['en', 'de'];
-
-  const params: Array<{ locale: string; slug: string }> = [];
-
-  locales.forEach((locale) => {
-    data.products.nodes.forEach(({ slug }) => {
-      params.push({ locale, slug });
-    });
-  });
-
-  return params;
+  // Return empty to avoid build-time backend stress/encoding issues.
+  // All pages will be generated on-demand via ISR.
+  return [];
 }
 
 export const revalidate = 60;
@@ -71,7 +62,7 @@ export default async function ProductPage({
   const { locale, slug } = await params;
   const dict = await getDictionary(locale as 'en' | 'de');
 
-  const data = await fetchGraphQL<ProductData>(PRODUCT_QUERY, { slug });
+  const data = await fetchGraphQL<ProductData>(PRODUCT_QUERY, { slug }, 60, true);
   const product = data.product;
   if (!product) notFound();
 

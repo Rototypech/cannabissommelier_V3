@@ -9,10 +9,18 @@ if (!GRAPHQL_ENDPOINT) {
 export async function fetchGraphQL<T = unknown>(
   query: string,
   variables?: Record<string, unknown>,
-  revalidate: number = 60
+  revalidate: number = 60,
+  skipCookies: boolean = false
 ): Promise<T> {
-  const cookieStore = await cookies();
-  const dealerToken = cookieStore.get('dealer_token')?.value;
+  let dealerToken: string | undefined;
+  if (!skipCookies) {
+    try {
+      const cookieStore = await cookies();
+      dealerToken = cookieStore.get('dealer_token')?.value;
+    } catch (e) {
+      // Silence build-time error
+    }
+  }
 
   const res = await fetch(GRAPHQL_ENDPOINT as string, {
     method: 'POST',
