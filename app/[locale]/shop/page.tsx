@@ -40,6 +40,7 @@ async function ProductGrid({
     dict: any;
 }) {
     let products: ProductListItem[] = [];
+    let errorMsg: string | null = null;
     try {
         const data = await fetchGraphQL<ProductsData>(
             PRODUCTS_QUERY,
@@ -52,7 +53,18 @@ async function ProductGrid({
         );
         products = data.products.nodes;
     } catch (error) {
-        console.error('Failed to fetch products for Shop ProductGrid:', error);
+        errorMsg = error instanceof Error ? error.message : 'Unknown error';
+        console.error('Failed to fetch products for Shop ProductGrid:', errorMsg);
+    }
+
+    if (errorMsg) {
+        return (
+            <div className="py-16 text-center">
+                <p className="text-sm font-light text-red-500/70">
+                    Unable to connect to product source: {errorMsg}
+                </p>
+            </div>
+        );
     }
 
     if (products.length === 0) {
