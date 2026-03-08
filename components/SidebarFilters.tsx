@@ -9,9 +9,10 @@ interface SidebarFiltersProps {
   activeSlug: string | null;
   locale: 'en' | 'de';
   allLabel: string;
+  dict: any;
 }
 
-export function SidebarFilters({ categories, activeSlug, locale, allLabel }: SidebarFiltersProps) {
+export function SidebarFilters({ categories, activeSlug, locale, allLabel, dict }: SidebarFiltersProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -102,7 +103,7 @@ export function SidebarFilters({ categories, activeSlug, locale, allLabel }: Sid
           aria-expanded={isOpen}
         >
           <IconFilter className="h-3.5 w-3.5" />
-          Filtry
+          {dict.common.filter}
           {activeSlug && (
             <span className="ml-0.5 h-1.5 w-1.5 rounded-full bg-black" />
           )}
@@ -118,7 +119,7 @@ export function SidebarFilters({ categories, activeSlug, locale, allLabel }: Sid
       {/* ── Desktop: sticky sidebar ── */}
       <aside className="hidden w-44 shrink-0 lg:block">
         <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.15em] text-neutral-400">
-          Kategorie
+          {dict.common.categories}
         </p>
         {items}
       </aside>

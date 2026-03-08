@@ -1,4 +1,9 @@
 {
+    "hero": {
+        "title": "Curated for connoisseurs",
+        "subtitle": "Selected premium products for those who value quality and exceptional taste.",
+        "cta": "Shop Now"
+    },
     "common": {
         "all": "All",
         "menu": "Menu",
@@ -13,7 +18,9 @@
         "variants": "Variants",
         "swissQuality": "Swiss Premium Quality",
         "noProducts": "No products found in this category.",
-        "allProducts": "All Products"
+        "allProducts": "All Products",
+        "filter": "Filter",
+        "categories": "Categories"
     },
     "ageGate": {
         "title": "Age Verification",

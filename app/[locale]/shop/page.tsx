@@ -144,6 +144,7 @@ export default async function ShopPage({ params, searchParams }: ShopProps) {
                     activeSlug={activeCategory}
                     locale={locale as 'en' | 'de'}
                     allLabel={dict.common.all}
+                    dict={dict}
                 />
 
                 {/* Product grid streams in while sidebar is already visible */}

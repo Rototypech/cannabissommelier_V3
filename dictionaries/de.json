@@ -1,4 +1,9 @@
 {
+    "hero": {
+        "title": "Ausgewählt für Kenner",
+        "subtitle": "Ausgewählte Premium-Produkte für alle, die Wert auf Qualität und außergewöhnlichen Geschmack legen.",
+        "cta": "Jetzt shoppen"
+    },
     "common": {
         "all": "Alle",
         "menu": "Menü",
@@ -13,7 +18,9 @@
         "variants": "Varianten",
         "swissQuality": "Schweizer Premium-Qualität",
         "noProducts": "Keine Produkte in dieser Kategorie gefunden.",
-        "allProducts": "Alle Produkte"
+        "allProducts": "Alle Produkte",
+        "filter": "Filter",
+        "categories": "Kategorien"
     },
     "ageGate": {
         "title": "Altersprüfung",

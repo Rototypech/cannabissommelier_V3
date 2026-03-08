@@ -122,7 +122,7 @@ export default async function HomePage({ params, searchParams }: HomeProps) {
   return (
     <>
       {/* Hero – full content width, only on main shop page without filters */}
-      {!activeCategory && !activeSearch && <Hero />}
+      {!activeCategory && !activeSearch && <Hero dict={dict} locale={locale} />}
 
       <div className="pt-12">
         {/* Header & Search */}
@@ -149,6 +149,7 @@ export default async function HomePage({ params, searchParams }: HomeProps) {
             activeSlug={activeCategory}
             locale={locale as 'en' | 'de'}
             allLabel={dict.common.all}
+            dict={dict}
           />
 
           {/* Product grid streams in while sidebar is already visible */}

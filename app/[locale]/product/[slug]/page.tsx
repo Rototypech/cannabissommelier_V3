@@ -62,8 +62,33 @@ export default async function ProductPage({
   const { locale, slug } = await params;
   const dict = await getDictionary(locale as 'en' | 'de');
 
-  const data = await fetchGraphQL<ProductData>(PRODUCT_QUERY, { slug }, 60, true);
-  const product = data.product;
+  let product: Product | null = null;
+  let errorMsg: string | null = null;
+
+  try {
+    const data = await fetchGraphQL<ProductData>(PRODUCT_QUERY, { slug }, 60, true);
+    product = data.product;
+  } catch (error) {
+    errorMsg = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Failed to fetch product:', errorMsg);
+  }
+
+  if (errorMsg) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 text-center">
+        <p className="mb-6 text-sm font-light text-red-500/70">
+          Unable to load product: {errorMsg}
+        </p>
+        <Link
+          href={`/${locale}/shop`}
+          className="text-xs font-light tracking-wide text-neutral-400 underline underline-offset-4 hover:text-black"
+        >
+          {dict.common.backToShop}
+        </Link>
+      </div>
+    );
+  }
+
   if (!product) notFound();
 
   const imageUrl = product.featuredImage?.node.sourceUrl ?? null;
