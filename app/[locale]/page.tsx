@@ -40,17 +40,21 @@ async function ProductGrid({
   search: string | null;
   dict: any;
 }) {
-  const data = await fetchGraphQL<ProductsData>(
-    PRODUCTS_QUERY,
-    {
-      first: 24, // Use a smaller limit as requested
-      category: category || null,
-      search: search || null
-    },
-    60
-  );
-
-  const products = data.products.nodes;
+  let products: ProductListItem[] = [];
+  try {
+    const data = await fetchGraphQL<ProductsData>(
+      PRODUCTS_QUERY,
+      {
+        first: 24, // Use a smaller limit as requested
+        category: category || null,
+        search: search || null
+      },
+      60
+    );
+    products = data.products.nodes;
+  } catch (error) {
+    console.error('Failed to fetch products for ProductGrid:', error);
+  }
 
   if (products.length === 0) {
     return (
@@ -91,12 +95,17 @@ export default async function HomePage({ params, searchParams }: HomeProps) {
   const dict = await getDictionary(locale as 'en' | 'de');
 
   // Categories load fast – no Suspense needed, sidebar appears immediately
-  const categoriesData = await fetchGraphQL<CategoriesData>(
-    CATEGORIES_QUERY,
-    undefined,
-    3600
-  );
-  const categories = categoriesData.productCategories.nodes;
+  let categories: Category[] = [];
+  try {
+    const categoriesData = await fetchGraphQL<CategoriesData>(
+      CATEGORIES_QUERY,
+      undefined,
+      3600
+    );
+    categories = categoriesData.productCategories.nodes;
+  } catch (error) {
+    console.error('Failed to fetch categories for HomePage:', error);
+  }
 
   return (
     <>

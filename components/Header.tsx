@@ -13,12 +13,17 @@ interface CategoriesData {
 export async function Header({ locale }: { locale: 'en' | 'de' }) {
   // Fetched here so Navigation (Client Component) receives data as props
   // without needing a client-side GraphQL call
-  const data = await fetchGraphQL<CategoriesData>(
-    CATEGORIES_QUERY,
-    undefined,
-    3600 // revalidate every hour
-  );
-  const categories = data.productCategories.nodes;
+  let categories: Category[] = [];
+  try {
+    const data = await fetchGraphQL<CategoriesData>(
+      CATEGORIES_QUERY,
+      undefined,
+      3600 // revalidate every hour
+    );
+    categories = data.productCategories.nodes;
+  } catch (error) {
+    console.error('Failed to fetch categories for Header:', error);
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-neutral-100 bg-white/95 backdrop-blur-sm transition-colors duration-300 dark:border-neutral-800 dark:bg-neutral-950/95">

@@ -45,6 +45,7 @@ export async function fetchGraphQL<T = unknown>(
     const messages = (json.errors as Array<{ message: string }>)
       .map((e) => e.message)
       .join('\n');
+    console.error(`GraphQL errors for query ${query.substring(0, 100)}...:\n${messages}`);
     throw new Error(`GraphQL errors:\n${messages}`);
   }
 
