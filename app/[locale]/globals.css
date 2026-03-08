@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Smooth theme transition – only for color-related properties */
+  html {
+    /* Allow next-themes to manage color-scheme via .dark class */
+  }
+
+  body {
+    @apply transition-colors duration-300;
+  }
+}

@@ -1,0 +1,24 @@
+{
+    "common": {
+        "all": "All",
+        "menu": "Menu",
+        "theme": "Theme",
+        "search": "Search...",
+        "loadMore": "Load More",
+        "backToShop": "Back to Shop",
+        "inStock": "In Stock",
+        "outOfStock": "Out of Stock",
+        "buyNow": "Buy Now",
+        "addToCart": "Add to Cart",
+        "variants": "Variants",
+        "swissQuality": "Swiss Premium Quality",
+        "noProducts": "No products found in this category.",
+        "allProducts": "All Products"
+    },
+    "ageGate": {
+        "title": "Age Verification",
+        "description": "You must be at least 18 years old to enter this site.",
+        "yes": "I am 18 or older",
+        "no": "I am under 18"
+    }
+}

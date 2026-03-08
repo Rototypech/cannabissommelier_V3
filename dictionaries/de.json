@@ -1,0 +1,24 @@
+{
+    "common": {
+        "all": "Alle",
+        "menu": "Menü",
+        "theme": "Design",
+        "search": "Suche...",
+        "loadMore": "Mehr laden",
+        "backToShop": "Zurück zum Shop",
+        "inStock": "Vorrätig",
+        "outOfStock": "Nicht vorrätig",
+        "buyNow": "Jetzt kaufen",
+        "addToCart": "In den Warenkorb",
+        "variants": "Varianten",
+        "swissQuality": "Schweizer Premium-Qualität",
+        "noProducts": "Keine Produkte in dieser Kategorie gefunden.",
+        "allProducts": "Alle Produkte"
+    },
+    "ageGate": {
+        "title": "Altersprüfung",
+        "description": "Sie müssen mindestens 18 Jahre alt sein, um diese Website zu betreten.",
+        "yes": "Ich bin 18 oder älter",
+        "no": "Ich bin unter 18"
+    }
+}
