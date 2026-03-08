@@ -25,7 +25,12 @@ export function LoadMore({ initialProducts, category, search, label }: LoadMoreP
         try {
             // In a real WP/WooCommerce GQL, we'd use after: cursor
             // But if we want simple offset or just next 24:
-            const data = await fetch(process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || '', {
+            const endpoint = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT;
+            if (!endpoint) {
+                throw new Error('NEXT_PUBLIC_GRAPHQL_ENDPOINT is not defined');
+            }
+
+            const res = await fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -34,10 +39,15 @@ export function LoadMore({ initialProducts, category, search, label }: LoadMoreP
                         first: 24,
                         category: category || null,
                         search: search || null,
-                        // skip: offset // If backend supports offset
                     }
                 })
-            }).then(res => res.json());
+            });
+
+            if (!res.ok) {
+                throw new Error(`Fetch failed: ${res.status}`);
+            }
+
+            const data = await res.json();
 
             const newNodes = data.data.products.nodes;
             // Note: This simple client-side load more might show duplicates if we don't have offset support

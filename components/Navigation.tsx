@@ -19,13 +19,14 @@ interface NavItem {
 interface Props {
   categories: Category[];
   locale: 'en' | 'de';
+  dict: any;
 }
 
 // ---------------------------------------------------------------------------
 // Inner component – uses useSearchParams (requires Suspense ancestor)
 // ---------------------------------------------------------------------------
 
-function NavContent({ categories, locale }: Props) {
+function NavContent({ categories, locale, dict }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
@@ -78,8 +79,8 @@ function NavContent({ categories, locale }: Props) {
         <Link
           href={`/${locale}/shop`}
           className={`whitespace-nowrap text-[11px] tracking-[0.1em] transition-colors duration-150 ${isActive(null)
-              ? 'font-medium text-black dark:text-white'
-              : 'font-light text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white'
+            ? 'font-medium text-black dark:text-white'
+            : 'font-light text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white'
             }`}
         >
           {locale === 'en' ? 'ALL' : 'ALLE'}
@@ -97,8 +98,8 @@ function NavContent({ categories, locale }: Props) {
               <Link
                 href={`/${locale}/shop?category=${cat.slug}`}
                 className={`flex items-center gap-1 whitespace-nowrap text-[11px] tracking-[0.1em] transition-colors duration-150 ${isActive(cat.slug)
-                    ? 'font-medium text-black dark:text-white'
-                    : 'font-light text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white'
+                  ? 'font-medium text-black dark:text-white'
+                  : 'font-light text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white'
                   }`}
               >
                 {cat.label}
@@ -120,8 +121,8 @@ function NavContent({ categories, locale }: Props) {
                             href={`/${locale}/shop?category=${sub.slug}`}
                             onClick={() => setActiveDropdown(null)}
                             className={`block text-[13px] font-light transition-colors duration-150 ${activeSlug === sub.slug
-                                ? 'text-black dark:text-white'
-                                : 'text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white'
+                              ? 'text-black dark:text-white'
+                              : 'text-neutral-400 hover:text-black dark:text-neutral-500 dark:hover:text-white'
                               }`}
                           >
                             {sub.name}
@@ -145,7 +146,7 @@ function NavContent({ categories, locale }: Props) {
         <button
           onClick={() => setIsOpen((v) => !v)}
           className="flex h-8 w-8 items-center justify-center text-neutral-400 transition-colors hover:text-black dark:text-neutral-500 dark:hover:text-white lg:hidden"
-          aria-label={isOpen ? 'Zamknij menu' : 'Otwórz menu'}
+          aria-label={isOpen ? dict.common.close || 'Close' : dict.common.menu || 'Menu'}
           aria-expanded={isOpen}
         >
           {isOpen ? <BurgerClose /> : <BurgerOpen />}
@@ -170,7 +171,7 @@ function NavContent({ categories, locale }: Props) {
             {/* Header in Drawer */}
             <div className="flex items-center justify-between mb-12">
               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400">
-                Menu
+                {dict.common.menu}
               </span>
               <button
                 onClick={() => setIsOpen(false)}
@@ -189,7 +190,7 @@ function NavContent({ categories, locale }: Props) {
                     className={`block text-xl font-light tracking-tight ${isActive(null) ? 'text-black dark:text-white' : 'text-neutral-400 dark:text-neutral-600'
                       }`}
                   >
-                    {locale === 'en' ? 'ALL' : 'ALLE'}
+                    {dict.common.all.toUpperCase()}
                   </Link>
                 </li>
                 {mainCategories.map((cat) => (
@@ -233,7 +234,7 @@ function NavContent({ categories, locale }: Props) {
             <div className="mt-auto pt-8 border-t border-neutral-100 dark:border-neutral-800">
               <div className="flex items-center justify-between mb-8">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-400">
-                  Theme
+                  {dict.common.theme}
                 </p>
                 <ThemeToggle />
               </div>
@@ -253,12 +254,12 @@ function NavContent({ categories, locale }: Props) {
 // Fallback – renders nav skeleton while searchParams resolves (SSR boundary)
 // ---------------------------------------------------------------------------
 
-function NavFallback({ categories, locale }: Props) {
+function NavFallback({ categories, locale, dict }: Props) {
   return (
     <>
       <nav className="hidden items-center gap-7 lg:flex" aria-hidden="true">
         <span className="text-[11px] font-light tracking-[0.1em] text-neutral-400">
-          {locale === 'en' ? 'ALL' : 'ALLE'}
+          {dict.common.all.toUpperCase()}
         </span>
         {categories.map((cat) => (
           <span
@@ -302,10 +303,10 @@ function BurgerClose() {
 // Public export – wraps inner component in Suspense (Next.js 15 requirement)
 // ---------------------------------------------------------------------------
 
-export function Navigation({ categories, locale }: Props) {
+export function Navigation({ categories, locale, dict }: Props) {
   return (
-    <Suspense fallback={<NavFallback categories={categories} locale={locale} />}>
-      <NavContent categories={categories} locale={locale} />
+    <Suspense fallback={<NavFallback categories={categories} locale={locale} dict={dict} />}>
+      <NavContent categories={categories} locale={locale} dict={dict} />
     </Suspense>
   );
 }

@@ -26,6 +26,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { notFound } from 'next/navigation';
+
 export default async function RootLayout({
   children,
   params,
@@ -34,6 +36,10 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
+  if (locale !== 'en' && locale !== 'de') {
+    notFound();
+  }
 
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>

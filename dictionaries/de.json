@@ -20,7 +20,8 @@
         "noProducts": "Keine Produkte in dieser Kategorie gefunden.",
         "allProducts": "Alle Produkte",
         "filter": "Filter",
-        "categories": "Kategorien"
+        "categories": "Kategorien",
+        "close": "Schließen"
     },
     "ageGate": {
         "title": "Altersprüfung",

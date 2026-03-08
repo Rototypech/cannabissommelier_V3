@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { fetchGraphQL } from '@/lib/api';
 import { CATEGORIES_QUERY } from '@/lib/queries';
 import { Navigation } from '@/components/Navigation';
+import { getDictionary } from '@/lib/get-dictionary';
 import type { Category } from '@/types/product';
 
 interface CategoriesData {
@@ -11,6 +12,7 @@ interface CategoriesData {
 }
 
 export async function Header({ locale }: { locale: 'en' | 'de' }) {
+  const dict = await getDictionary(locale);
   // Fetched here so Navigation (Client Component) receives data as props
   // without needing a client-side GraphQL call
   let categories: Category[] = [];
@@ -51,7 +53,7 @@ export async function Header({ locale }: { locale: 'en' | 'de' }) {
 
         {/* Navigation: desktop links + ThemeToggle + mobile burger
             Wrapped in Suspense internally for useSearchParams */}
-        <Navigation categories={categories} locale={locale} />
+        <Navigation categories={categories} locale={locale} dict={dict} />
 
       </div>
     </header>

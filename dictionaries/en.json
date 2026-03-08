@@ -20,7 +20,8 @@
         "noProducts": "No products found in this category.",
         "allProducts": "All Products",
         "filter": "Filter",
-        "categories": "Categories"
+        "categories": "Categories",
+        "close": "Close"
     },
     "ageGate": {
         "title": "Age Verification",
