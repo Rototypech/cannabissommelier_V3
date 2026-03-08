@@ -33,11 +33,13 @@ interface ShopProps {
 async function ProductGrid({
     category,
     search,
-    dict
+    dict,
+    locale
 }: {
     category: string | null;
     search: string | null;
     dict: any;
+    locale: string;
 }) {
     let products: ProductListItem[] = [];
     let errorMsg: string | null = null;
@@ -79,7 +81,7 @@ async function ProductGrid({
         <>
             <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
                 {products.map((product: ProductListItem) => (
-                    <ProductCard key={product.databaseId} product={product} />
+                    <ProductCard key={product.databaseId} product={product} locale={locale} />
                 ))}
             </div>
 
@@ -154,6 +156,7 @@ export default async function ShopPage({ params, searchParams }: ShopProps) {
                             category={activeCategory}
                             search={activeSearch}
                             dict={dict}
+                            locale={locale}
                         />
                     </Suspense>
                 </div>

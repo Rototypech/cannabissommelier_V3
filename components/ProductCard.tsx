@@ -4,17 +4,18 @@ import type { ProductListItem } from '@/types/product';
 
 interface ProductCardProps {
   product: ProductListItem;
+  locale: string;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, locale }: ProductCardProps) {
   const { slug, name, price, featuredImage } = product;
   const imageUrl = featuredImage?.node.sourceUrl ?? null;
   const imageAlt = featuredImage?.node.altText || name;
 
   return (
-    <Link href={`/product/${slug}`} className="group block">
+    <Link href={`/${locale}/product/${slug}`} className="group block">
       {/* Image container – 4:5 portrait ratio */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-neutral-50">
+      <div className="relative aspect-[4/5] overflow-hidden bg-neutral-50 dark:bg-neutral-900">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -25,9 +26,9 @@ export function ProductCard({ product }: ProductCardProps) {
           />
         ) : (
           // Elegancki placeholder zamiast tekstu
-          <div className="flex h-full w-full items-center justify-center bg-neutral-100">
+          <div className="flex h-full w-full items-center justify-center bg-neutral-100 dark:bg-neutral-800">
             <svg
-              className="h-10 w-10 text-neutral-300"
+              className="h-10 w-10 text-neutral-300 dark:text-neutral-700"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -46,7 +47,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
       {/* Meta */}
       <div className="mt-3 space-y-0.5">
-        <h3 className="text-[13px] font-light leading-snug tracking-wide text-neutral-800 transition-colors duration-200 group-hover:text-black line-clamp-2">
+        <h3 className="text-[13px] font-light leading-snug tracking-wide text-neutral-800 transition-colors duration-200 group-hover:text-black line-clamp-2 dark:text-neutral-100 dark:group-hover:text-white">
           {name}
         </h3>
         {price && (
